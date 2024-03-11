@@ -44,7 +44,7 @@ get '/secure/place' do
 end
 
 get '/about' do
-  erb :about
+    erb :about
 end
 
 get '/contacts' do
@@ -62,6 +62,11 @@ post '/visite' do
   @time = params[:@time]
   @barber = params[:@barber]
   @color = params[:@color]
+
+    if @user_name == ''
+      @error = 'Введите имя'
+      return erb :visite
+    end
 
   @title = "Спасибо!"
   @message = "#{@user_name}, мы будем ждать вас #{@time} к барберу #{@barber}, цвет #{@color}"
