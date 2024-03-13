@@ -66,14 +66,10 @@ post '/visite' do
   hh = {:@user_name => 'Введите имя',
     :@phone => 'Введите телефон', :@time => 'Введите дату'}
 
-          # ичь пройдется по каждой паре и если (if)пареметр пустой, выдаст ошибку error
-   hh.each do |key, value|
-      if params[key] == ""
-        @error = hh[key]
-        # вернуть представление visite
-        return erb :visite
-      end
-    end
+ @error = hh.select {|key,_| params[key] == ''}.values.join(", ")
+ if @error != ""
+  return erb :visite
+end
 
         @title = "Ok!"
   @message = "#{@user_name}, мы будем ждать вас #{@time} к барберу #{@barber}, цвет #{@color}"
