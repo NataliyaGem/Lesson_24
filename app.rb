@@ -63,22 +63,19 @@ post '/visite' do
   @barber = params[:@barber]
   @color = params[:@color]
 
-    if @user_name == ''
-      @error = 'Введите имя'
-      return erb :visite
+  hh = {:@user_name => 'Введите имя',
+    :@phone => 'Введите телефон', :@time => 'Введите дату'}
+
+          # ичь пройдется по каждой паре и если (if)пареметр пустой, выдаст ошибку error
+   hh.each do |key, value|
+      if params[key] == ""
+        @error = hh[key]
+        # вернуть представление visite
+        return erb :visite
+      end
     end
 
-    if @phone == ''
-      @error = 'Введите номер телефона'
-      return erb :visite
-    end
-
-    if @time == ''
-      @error = 'Введите дату'
-      return erb :visite
-    end
-
-  @title = "Спасибо!"
+        @title = "Ok!"
   @message = "#{@user_name}, мы будем ждать вас #{@time} к барберу #{@barber}, цвет #{@color}"
 
   f = File.open 'client.txt', 'a' # образует запись в файл, а - добавляет в конец файла
