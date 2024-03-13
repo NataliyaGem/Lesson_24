@@ -68,6 +68,16 @@ post '/visite' do
       return erb :visite
     end
 
+    if @phone == ''
+      @error = 'Введите номер телефона'
+      return erb :visite
+    end
+
+    if @time == ''
+      @error = 'Введите дату'
+      return erb :visite
+    end
+
   @title = "Спасибо!"
   @message = "#{@user_name}, мы будем ждать вас #{@time} к барберу #{@barber}, цвет #{@color}"
 
